@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Card } from 'src/app/models/card';
+import { IGame } from 'src/app/models/game';
+import { GameService } from 'src/app/services/game.service';
 
 @Component({
   selector: 'app-cards-game',
@@ -8,23 +10,30 @@ import { Card } from 'src/app/models/card';
 })
 export class CardsGameComponent implements OnInit {
 
-  private isGameStarted = false;
-   deck : Card[] = [];
-   sortedDeck : Card[] = [];
-   colorOrder: string[] = [];
-   cardValuesOrder : string[] = [];
+   isGameStarted = false;
+   currentGame : IGame | undefined;
+   apiError = false;
   
-  constructor() { }
+  constructor(protected gameService: GameService) { }
 
   ngOnInit(): void {
-    this.deck.push(new Card("COEUR","ROI"));
-    this.deck.push(new Card("COEUR","ROI"));
-    this.deck.push(new Card("COEUR","ROI"));
-    this.deck.push(new Card("COEUR","ROI"));
-    this.deck.push(new Card("COEUR","ROI"));
-    this.deck.push(new Card("COEUR","ROI"));
-    this.deck.push(new Card("COEUR","ROI"));
-    this.deck.push(new Card("COEUR","ROI"));
+
   }
 
+  logger() : void {
+    console.log(this.currentGame);
+  }
+  startNewGame() : void {
+    this.isGameStarted = false;
+      this.gameService.getANewGame()
+      .subscribe(
+        (data: IGame) => {
+          this.currentGame = data;
+          this.isGameStarted = true;
+          this.apiError = false;
+        },
+
+        (error) => this.apiError = true
+      );
+  }
 }

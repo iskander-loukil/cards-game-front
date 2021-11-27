@@ -1,9 +1,34 @@
 <div>
     <div class="buttons">
-      <button >Shuffle !</button>
-      <button >Deal one card !</button>
+      <button (click)= "startNewGame()">Tirez une main!</button>
     </div>
-    <div class="table">
-      <img *ngFor="let card of deck"  class="card" src="./assets/img/cards/ROI_de_COEUR.png"/>
+    <div *ngIf="apiError">
+        Une erreur est survenue , veuillez réessayer!
     </div>
+    <div *ngIf="isGameStarted">
+    <div>
+        <h2>Main initiale</h2>
+        <div class="table">
+          <img *ngFor="let card of currentGame!.deck"  class="card" src="./assets/img/cards/{{card.cardValue}}_de_{{card.color}}.png"/>
+        </div>
+    </div>
+    <div>
+        <h2>Ordre des couleurs</h2>
+        <div class="table">
+          <img *ngFor="let color of currentGame!.cardsOrder.colorOrder"  class="card" src="./assets/img/cards/AS_de_{{color}}.png"/>
+        </div>
+    </div>
+    <div>
+        <h2>Ordre des valeurs des cartes</h2>
+        <div class="table">
+          <img *ngFor="let cardValue of currentGame!.cardsOrder.cardValuesOrder"  class="card" src="./assets/img/cards/{{cardValue}}_de_PIQUE.png"/>
+        </div>
+    </div>
+    <div>
+        <h2>Main triée</h2>
+        <div class="table">
+          <img *ngFor="let card of currentGame!.sortedDeck"  class="card" src="./assets/img/cards/{{card.cardValue}}_de_{{card.color}}.png"/>
+        </div>
+    </div>
+        </div>
   </div>

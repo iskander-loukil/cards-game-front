@@ -3,14 +3,14 @@ import { ICardsOrder } from "./cards-order";
 
 export interface IGame {
     deck : ICard[],
-    cardsOrder: ICardsOrder[],
+    cardsOrder: ICardsOrder,
     sortedDeck : ICard[]
   }
 
   export class Game implements IGame{
       constructor(
        public deck : ICard[],
-       public cardsOrder: ICardsOrder[],
+       public cardsOrder: ICardsOrder,
        public sortedDeck : ICard[]
       ) {}
   }
